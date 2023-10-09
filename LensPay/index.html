@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LensPay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Mooli&family=Poppins:wght@200&display=swap",rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/phone.css">
+
+    <style>
+        @keyframes moveStar {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(100vw, 100vh);
+            }
+        }
+
+        /* Separate animations for different directions */
+        @keyframes moveStar-up {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(calc(100vw * 1.5));
+            }
+        }
+
+        @keyframes moveStar-down {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(100vh) translateX(calc(100vw * 1.5));
+            }
+        }
+
+        @keyframes moveStar-left {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(calc(100vh * 1.5)) translateX(-100vw);
+            }
+        }
+
+        @keyframes moveStar-right {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            100% {
+                transform: translateY(calc(100vh * 1.5)) translateX(100vw);
+            }
+        }
+
+        @keyframes animate-bg {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 100vw 0;
+            }
+        }
+
+        /*  */
+        @font-face {
+            font-family: PrimaryFont;
+            src: url(fonts/BigCaslon.ttf);
+        }
+
+        @font-face {
+            font-family: secondaryFont;
+            src: url(fonts/Raleway-Medium.ttf);
+        }
+
+        @font-face {
+            font-family: secondaryBold;
+            src: url(fonts/Raleway-Bold.ttf);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-sky">
+        <div class="starry-sky">
+            <!-- JavaScript will generate stars dynamically -->
+        </div>
+    </div>
+    <div class="container">
+        <div class="top">
+            <img src="img/LensPay.svg" alt="">
+        </div>
+
+        <div class="heading">
+            <h1>Super App for Social Payments</h1>
+            <p>Connect, Pay, Split, Shop with your lens frens</p>
+        </div>
+
+        <div class="coming">
+            <p>LAUNCHING SOON</p>
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="" id="text" placeholder="Your lens handle">
+            <button id="btn">Join Waitlist</button>
+        </div>
+
+        <div class="footer">
+            <p id="powered">Powered By</p>
+        </div>
+
+        <div class="img">
+            <img id="img" src="img/LensProtocol.svg" alt="">
+        </div>
+
+        <div class="last">
+            <a href="https://twitter.com/LensPay_io" target="_blank"><img src="img/X.svg" alt=""></a>
+            <a href="https://t.me/+6e_ndeo-gtxjNTc9" target="_blank"><img src="img\Telegram.svg" alt=""></a>
+        </div>
+
+        <!-- Overlay to blur the background -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Popup -->
+        <div class="popup" id="success-popup">
+            <img src="img/Success.svg" alt="">
+            <p id="success">You've successfully joined the Waitlist. Stay tuned for exciting updates.</p>
+            <div class="close-button" id="success-close-button">Close</div>
+        </div>
+
+        <div class="popup" id="error-popup">
+            <!-- <img src="img/Error.svg" alt=""> -->
+            <h1> ✅ </h1>
+            <p id="sorry">You are already in the waitlist</p>
+            <div class="close-button" id="error-close-button">Close</div>
+        </div>
+
+        <div class="popup" id="new-error-popup">
+            <h1> 🙂 </h1>
+            <p id="lens-extention">Lens handle must end with ".lens"</p>
+            <div class="close-button" id="new-error-close-button">Close</div>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
+        <script>
+
+            const numberOfStars = 500;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                createStar();
+            }
+
+            function createStar() {
+                const star = document.createElement("div");
+                star.classList.add("star");
+                document.querySelector(".starry-sky").appendChild(star);
+
+                const size = Math.random() * 0.4 + 1; // Smaller size
+                const left = Math.random() * 1007; // Adjusted for width
+                const top = Math.random() * 614; // Adjusted for height
+                const animationDuration = Math.random() * 80 + 80; // Decreased animation duration
+
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}px`; // Adjusted for width
+                star.style.top = `${top}px`; // Adjusted for height
+
+                const randomDirection = Math.floor(Math.random() * 4);
+                switch (randomDirection) {
+                    case 0:
+                        star.style.animation = `moveStar-up ${animationDuration}s linear infinite`;
+                        break;
+                    case 1:
+                        star.style.animation = `moveStar-down ${animationDuration}s linear infinite`;
+                        break;
+                    case 2:
+                        star.style.animation = `moveStar-left ${animationDuration}s linear infinite`;
+                        break;
+                    case 3:
+                        star.style.animation = `moveStar-right ${animationDuration}s linear infinite`;
+                        break;
+                }
+            }
+
+
+
+
+            var firebaseConfig = {
+                apiKey: "AIzaSyBCr1fbMfIhd7bLfufprJn8UFNuNCjFtzI",
+                authDomain: "lenspay-16e75.firebaseapp.com",
+                projectId: "lenspay-16e75",
+                storageBucket: "lenspay-16e75.appspot.com",
+                messagingSenderId: "369684149248",
+                appId: "1:369684149248:web:7316b0fa3252d798e794e5",
+                measurementId: "G-TYWD7LFWV8"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            // Get a Firestore instance
+            const db = firebase.firestore();
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const btn = document.getElementById('btn');
+                const handleInput = document.getElementById('text');
+                const successPopup = document.getElementById('success-popup');
+                const errorPopup = document.getElementById('error-popup');
+                const newErrorPopup = document.getElementById('new-error-popup');
+                const overlay = document.getElementById('overlay');
+
+                btn.addEventListener('click', async () => {
+                    const handle = handleInput.value;
+
+                    if (handle.endsWith('.lens')) {
+                        try {
+                            // Check if the handle already exists
+                            const snapshot = await db.collection('LensPay').where('handle', '==', handle).get();
+
+                            if (snapshot.empty) {
+                                // Handle does not exist, display success popup
+                                showOverlay(); // Show the overlay with background blur
+                                showPopup(successPopup);
+                                hidePopup(errorPopup);
+                                hidePopup(newErrorPopup);
+                                handleInput.value = '';
+                            } else {
+                                // Handle already exists, display error popup
+                                showOverlay(); // Show the overlay with background blur
+                                showPopup(errorPopup);
+                                hidePopup(successPopup);
+                                hidePopup(newErrorPopup);
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            // Display a general error message
+                            showOverlay(); // Show the overlay with background blur
+                            showPopup(errorPopup);
+                            hidePopup(successPopup);
+                            hidePopup(newErrorPopup);
+                        }
+                    } else {
+                        // Show the "Lens handle must end with '.lens'" popup for invalid handles
+                        showOverlay(); // Show the overlay with background blur
+                        showPopup(newErrorPopup);
+                        hidePopup(successPopup);
+                        hidePopup(errorPopup);
+                    }
+                });
+
+                // Close the popups when the close buttons are clicked
+                const successCloseButton = document.getElementById('success-close-button');
+                successCloseButton.addEventListener('click', () => {
+                    hideOverlay(); // Hide the overlay and deactivate background blur
+                    hidePopup(successPopup);
+                });
+
+                const errorCloseButton = document.getElementById('error-close-button');
+                errorCloseButton.addEventListener('click', () => {
+                    hideOverlay(); // Hide the overlay and deactivate background blur
+                    hidePopup(errorPopup);
+                });
+
+                const newErrorCloseButton = document.getElementById('new-error-close-button');
+                newErrorCloseButton.addEventListener('click', () => {
+                    hideOverlay(); // Hide the overlay and deactivate background blur
+                    hidePopup(newErrorPopup);
+                });
+
+                // Function to show a popup
+                function showPopup(popup) {
+                    popup.style.display = 'block';
+                }
+
+                // Function to hide a popup
+                function hidePopup(popup) {
+                    popup.style.display = 'none';
+                }
+
+                // Function to show the overlay and activate background blur
+                function showOverlay() {
+                    overlay.style.display = 'block';
+                    overlay.style.backdropFilter = 'blur(10px)'; // Activate background blur
+                }
+
+                // Function to hide the overlay and deactivate background blur
+                function hideOverlay() {
+                    overlay.style.display = 'none';
+                    overlay.style.backdropFilter = 'none'; // Deactivate background blur
+                }
+            });
+
+        </script>
+</body>
+
+</html>

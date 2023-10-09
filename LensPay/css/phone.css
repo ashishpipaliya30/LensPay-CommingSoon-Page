@@ -1,0 +1,86 @@
+/* body {
+    flex-direction: column;
+    overflow: hidden;
+}
+
+h1 {
+    flex-direction: column;
+}
+
+p {
+    flex-direction: column;
+}
+
+.container {
+    flex-direction: column;
+}
+
+.heading {
+    flex-direction: column;
+}
+
+.coming {
+    flex-direction: column;
+}
+
+.form-group {
+    flex-direction: column;
+}
+
+.footer {
+    flex-direction: column;
+}
+
+.img {
+    flex-direction: column;
+}
+
+.last {
+    flex-direction: column;
+}
+
+.popup {
+    flex-direction: column;
+} */
+
+/* Responsive Styles */
+
+/* Adjust font sizes for smaller screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+    
+    .coming p {
+        font-size: 20px;
+        margin-top: 30px;
+    }
+
+    #text {
+        width: 80%;
+    }
+
+    #btn {
+        margin: 20px 0;
+        padding: 10px 20px;
+    }
+
+    .top {
+        margin: 30px;
+    }
+
+    .last {
+        margin: 30px;
+    }
+
+    .img {
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+/* Add more responsive styles as needed */
